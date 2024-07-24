@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// App.js
+import React from 'react';
+import 'react-native-url-polyfill/auto'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { ProductProvider } from './context/ProductContext';
+import HomeScreen from './screens/HomeScreen';
+import SumScreen from './screens/SumScreen';;
+import ListProductScreen from './screens/ListProductScreen';
+import AddProductScreen from './screens/AddProductScreen';
+import EditProductScreen from './screens/EditProductScreen';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ProductProvider>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Inicio' }} />
+        <Stack.Screen name="Suma" component={SumScreen} options={{ title: 'Suma' }} />
+        <Stack.Screen name="Catalogo" component={ListProductScreen} options={{ title: 'Catálogo' }} />
+        <Stack.Screen name="AgregarProducto" component={AddProductScreen} options={{ title: 'Agregar Producto' }} />
+        <Stack.Screen name="EditarProducto" component={EditProductScreen} options={{ title: 'Editar Producto' }} /> 
+      </Stack.Navigator>
+    </NavigationContainer>
+    </ProductProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
